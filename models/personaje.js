@@ -2,6 +2,11 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var PersonajeSchema = Schema({
+    Alias: {
+        type: String,
+        required: true,
+        unique: true
+    },
     Nombre: {
         type: String,
         required: true

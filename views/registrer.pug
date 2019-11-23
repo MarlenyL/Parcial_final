@@ -1,21 +1,27 @@
 extends layout
 
 block content
-  div(class="container")
-    div(class='jumbotron')
-      form(method='post', action="/")
-        div(class="form-group")
-          label(for="Nombre") Nombre
-          input#Nombre(type="text" class="form-control" name="Nombre" placeholder="Tobias Eaton")
-          br
-          label(for="Faccion") Faccion
-          input#Faccion(type="text" class="form-control" name="Faccion"  placeholder="Osadia")
-          br
-          label(for="Actor") Actor
-          input#Actor(type="text" class="form-control" name="Actor"  placeholder="Theo James")
-          br
-          label(for="Divergente") Divergente
-          input#Divergente(type="Divergente" class="form-control" name="Divergente"  plaaceholder="no")
-          br
-          button(type="submit" class="btn btn-primary") Submit
-          
+  div(class="container-fluid py-3")
+    div(class="row")
+      div(class="col-md-6 mx-auto")
+        div(class="card card-body")
+          fieldset
+            form(method='post', action="/")
+              div(class="form-group")
+                label(for="Alias") Nombre
+                input#Alias(type="text" class="form-control input-lg" name="Alias" placeholder="Cuatro")
+              div(class="form-group")
+                label(for="Nombre") Nombre
+                input#Nombre(type="text" class="form-control input-lg" name="Nombre" placeholder="Tobias Eaton")
+              div(class="form-group")
+                label(for="Faccion") Faccion
+                input#Faccion(type="text" class="form-control input-lg" name="Faccion"  placeholder="Osadia")
+              div(class="form-group")
+                label(for="Actor") Actor
+                input#Actor(type="text" class="form-control input-lg" name="Actor"  placeholder="Theo James")
+              div(class="form-group")
+                label(for="Divergente") Divergente
+                input#Divergente(type="Divergente" class="form-control input-lg" name="Divergente"  plaaceholder="no")
+                br
+                button(type="submit" class="btn btn-primary") Submit
+                

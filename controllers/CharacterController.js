@@ -4,7 +4,7 @@ var debug = require('debug')('blog:personaje_controller');
 module.exports.getOne = (req, res, next) => {
     debug("Search Character", req.params);
     Personaje.findOne({
-            Nombre: req.params.nombre
+            Alias: req.params.alias
         })
         .then((foundPersonaje) => {
             if (foundPersonaje)
@@ -40,24 +40,25 @@ module.exports.getAll = (req, res, next) => {
 }
 
 module.exports.register = (req, res, next) => {
-    console.log("HOLA");
     debug("New Character", {
         body: req.body
     });
     Personaje.findOne({
-            Nombre: req.body.nombre
+            Alias: req.body.alias
         })
         .then((foundCharacter) => {
             if (foundCharacter) {
                 debug("Character duplicado");
-                throw new Error(`Character duplicado ${req.body.nombre}`);
+                throw new Error(`Character duplicado ${req.body.alias}`);
             } else {
                 let newCharacter = new Personaje({
+                    Alias: req.body.alias,
                     Nombre: req.body.nombre,
                     Faccion: req.body.faccion || "",
                     Actor: req.body.actor || "",
                     Divergente: req.body.divergente
                 });
+                console.log(newCharacter);
                 return newCharacter.save(); // Retornamos la promesa para poder concater una sola linea de then
             }
         }).then(character => { // Con el usario almacenado retornamos que ha sido creado con exito
@@ -65,7 +66,7 @@ module.exports.register = (req, res, next) => {
                 .header('Location', '/characters/' + character._id)
                 .status(201)
                 .json({
-                    nombre: character.nombre
+                    Alias: character.alias
                 });
         }).catch(err => {
             next(err);
@@ -73,7 +74,7 @@ module.exports.register = (req, res, next) => {
 }
 module.exports.update = (req, res, next) => {
     debug("Update Character", {
-        Nombre: req.params.nombre,
+        Alias: req.params.alias,
         ...req.body
     });
 
@@ -82,7 +83,7 @@ module.exports.update = (req, res, next) => {
     };
 
     Personaje.findOneAndUpdate({
-            Nombre: req.params.nombre
+            Alias: req.params.alias
         }, update, {
             new: true
         })
@@ -99,10 +100,10 @@ module.exports.update = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
 
     debug("Delete character", {
-        Nombre: req.params.nombre,
+        Alias: req.params.alias,
     });
 
-    Personaje.findOneAndDelete({Nombre: req.params.nombre})
+    Personaje.findOneAndDelete({Alias: req.params.alias})
     .then((data) =>{
         if (data) res.status(200).json(data);
         else res.status(404).send();
